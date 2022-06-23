@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bienvenido a TuBanco!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Rubik:wght@300;400&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/message.css">
+  <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+
+<body>
+  <div class="btn-section btn-section--left">
+    <span class="btn btn--left" id="btnLeftTop"></span>
+    <span class="btn btn--left" id="btnLeftMiddle"></span>
+    <span class="btn btn--left" id="btnLeftBottom"></span>
+  </div>
+  <main class="screenATM" id="screenATM">
+    <div id="message" class="message"></div>
+    <!-- Login -->
+    <div id="loginView" class="flex flex--col flex-alg--center flex-jty--space-around h--inherit">
+      <h1 class="title">TuBanco</h1>
+      <form action="javascript:void(0);" id="login">
+        <div class="flex flex--col">
+          <label for="account" class="input-label">Cuenta:</label>
+          <select name="account" id="account" class="input">
+            <option value="0" selected disabled>Seleccione una cuenta</option>
+          </select>
+        </div>
+        <div class="flex flex--col">
+          <label for="password" class="input-label">Contraseña:</label>
+          <input type="password" name="password" id="password" class="input" placeholder="Ingrese su contraseña">
+        </div>
+      </form>
+      <span class="text text-right--bottom">Entrar</span>
+    </div>
+    <!-- Main -->
+    <div id="mainView" class="flex flex-alg--center flex-jty--space-around flex--col h--inherit hiddenView">
+      <span class="text text-left--top">Consultar Saldo</span>
+      <span class="text text-left--middle">Ingresar Monto</span>
+      <span class="text text-left--bottom">Retirar Monto</span>
+      <span class="text text-right--bottom">Salir</span>
+    </div>
+    <!-- Consultar  -->
+    <div id="consultarView" class="flex flex-alg--center flex-jty--space-evenly flex--col h--inherit hiddenView">
+      <h2 class="title">Tu saldo es:</h2>
+      <span class="input-label" id="textSaldo"></span>
+      <span class="text text-right--bottom">Regresar</span>
+    </div>
+    <!-- Ingresar Monto -->
+    <div id="ingresarMontoView" class="flex flex-alg--center flex-jty--space-around flex--col h--inherit hiddenView">
+      <div class="flex flex--col flex-alg--center">
+        <label for="montoIngresar" class="input-label">Ingrese monto:</label>
+        <div class="flex flex-alg--center flex-jty--center gap--sm">
+          <span class="input-label">$</span>
+          <input type="number" class="input text-alg--center w--50" name="montoIngresar" id="montoIngresar"
+            oninput="this.value = this.value.replace(/\D+/g, '')" placeholder="100">
+        </div>
+      </div>
+      <span class="text text-left--bottom">Ingresar</span>
+      <span class="text text-right--bottom">Regresar</span>
+    </div>
+    <!-- Retirar Monto -->
+    <div id="retirarMontoView" class="flex flex-alg--center flex-jty--space-around flex--col h--inherit hiddenView">
+      <div class="flex flex--col flex-alg--center">
+        <label for="montoRetirar" class="input-label">Monto a Retirar:</label>
+        <div class="flex flex-alg--center flex-jty--center gap--sm">
+          <span class="input-label">$</span>
+          <input type="number" class="input text-alg--center w--50" name="montoRetirar" id="montoRetirar"
+            oninput="this.value = this.value.replace(/\D+/g, '')" placeholder="100">
+        </div>
+      </div>
+      <span class="text text-left--bottom">Retirar</span>
+      <span class="text text-right--bottom">Regresar</span>
+    </div>
+  </main>
+  <div class="btn-section btn-section--right">
+    <span class="btn btn--right" id=""></span>
+    <span class="btn btn--right" id=""></span>
+    <span class="btn btn--right" id="btnRightBottom"></span>
+  </div>
+  <script src="./assets/js/message.js"></script>
+  <script src="./index.js"></script>
+</body>
+
+</html>

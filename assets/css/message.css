@@ -1,0 +1,49 @@
+.message {
+  display                        : none;
+  position                       : absolute;
+  top                            : 0;
+  left                           : 0;
+  width                          : 100%;
+  text-align                     : center;
+  padding                        : 0.8rem 0;
+  font-weight                    : 400;
+  font-size                      : 1.5rem;
+  letter-spacing                 : 0.1rem;
+  /* animation                   : hideMessage;
+  animation-duration             : 1s;
+  animation-delay                : 5s;
+  animation-fill-mode            : forwards;
+  animation-timing-function      : ease-in-out; */
+  /* border-top                  : 5px solid var(--dark-gray); */
+  border-top-left-radius         : 20px;
+  border-top-right-radius        : 20px;
+  -webkit-box-shadow             : inset 0px 30px 40px -10px rgba(115, 115, 115, 0.7);
+  -moz-box-shadow                : inset 0px 30px 40px -10px rgba(115, 115, 115, 0.7);
+  box-shadow                     : inset 0px 30px 40px -10px rgba(115, 115, 115, 0.7);
+}
+
+.message--error {
+  color           : hsl(0, 0%, 100%);
+  background-color: hsl(0, 87%, 55%);
+}
+
+.message--info {
+  color           : hsl(0, 0%, 100%);
+  background-color: hsl(201, 59%, 44%);
+}
+
+.message--warning {
+  color           : hsl(0, 0%, 100%);
+  background-color: hsl(22, 87%, 57%);
+}
+
+.message--success {
+  color           : hsl(0, 0%, 100%);
+  background-color: hsl(132, 82%, 52%);
+}
+
+/* @keyframes hideMessage {
+  to {
+    top: -100px;
+  }
+} */

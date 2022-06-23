@@ -1,0 +1,204 @@
+:root {
+  --black       : hsl(195, 3%, 24%);
+  --blue        : hsl(201, 64%, 52%);
+  --dark-blue   : hsl(201, 59%, 44%);
+  --dark-gray   : hsl(0, 0%, 70%);
+  --darker-gray : hsl(0, 0%, 45%);
+  --darkest-gray: hsl(0, 0%, 59%);
+  --gray        : hsl(0, 0%, 79%);
+  --light-black : hsl(195, 2%, 49%);
+  --light-gray  : hsl(60, 5%, 92%);
+  --red         : hsl(0, 87%, 55%);
+  --white       : hsl(0, 0%, 100%);
+  --title-font  : 'Fredoka One', cursive;
+  --text-font   : 'Rubik', sans-serif;
+}
+
+* {
+  margin    : 0;
+  padding   : 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-size       : 16px;
+  display         : flex;
+  flex-direction  : column;
+  align-items     : center;
+  justify-content : center;
+  height          : 100vh;
+  background-color: var(--darkest-gray);
+}
+
+.screenATM {
+  background-color  : var(--blue);
+  border            : 5px solid var(--dark-gray);
+  border-radius     : 25px;
+  width             : 680px;
+  height            : 560px;
+  -webkit-box-shadow: inset 0px 0px 40px 20px var(--dark-blue);
+  -moz-box-shadow   : inset 0px 0px 40px 20px var(--dark-blue);
+  box-shadow        : inset 0px 0px 40px 20px var(--dark-blue);
+  position          : relative;
+}
+
+.btn-section {
+  position        : absolute;
+  display         : flex;
+  flex-direction  : column;
+  align-items     : center;
+  justify-content : space-between;
+  background-color: var(--light-black);
+  border          : 5px solid var(--dark-gray);
+  border-radius   : 45px;
+  padding         : 2rem 1.2rem;
+  height          : 560px;
+  width           : 200px;
+}
+
+.btn-section--left {
+  left       : 0;
+  margin-left: 50px;
+}
+
+.btn-section--right {
+  right       : 0;
+  margin-right: 50px;
+}
+
+.btn {
+  display         : block;
+  height          : 60px;
+  width           : 80%;
+  background-color: var(--gray);
+  border          : 10px solid var(--dark-gray);
+  transition      : 100ms ease-in-out;
+  cursor          : pointer;
+}
+
+.btn:hover {
+  background-color: var(--light-gray);
+}
+
+.btn:active {
+  transform       : scale(0.90);
+  border-color    : var(--darker-gray);
+  background-color: var(--gray);
+}
+
+.btn--left {
+  border-top-left-radius    : 30px;
+  border-top-right-radius   : 10px;
+  border-bottom-left-radius : 10px;
+  border-bottom-right-radius: 30px;
+}
+
+.btn--right {
+  border-top-right-radius   : 30px;
+  border-top-left-radius    : 10px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius : 30px;
+}
+
+.h--inherit {
+  height: inherit;
+}
+
+.w--50 {
+  width: 50%;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex--col {
+  flex-direction: column;
+}
+
+.flex-alg--center {
+  align-items: center;
+}
+
+.flex-jty--center {
+  justify-content: center;
+}
+
+.flex-jty--space-around {
+  justify-content: space-around;
+}
+
+.flex-jty--space-evenly {
+  justify-content: space-evenly;
+}
+
+.gap--sm {
+  gap: 1rem;
+}
+
+.hiddenView {
+  display: none;
+}
+
+.title {
+  font-family: var(--title-font);
+  color      : var(--white);
+  font-size  : 4.6rem;
+}
+
+.text {
+  font-family: var(--text-font);
+  color      : var(--white);
+  font-size  : 2.4rem;
+  position   : absolute;
+  width      : 180px;
+}
+
+.text-alg--center {
+  text-align: center;
+}
+
+.text-right--top {
+  text-align: right;
+  transform : translate(220px, -220px);
+}
+
+.text-right--middle {
+  text-align: right;
+  transform : translate(220px, 0);
+}
+
+.text-right--bottom {
+  text-align: right;
+  transform : translate(220px, 200px);
+}
+
+.text-left--top {
+  transform: translate(-200px, -220px);
+}
+
+.text-left--middle {
+  transform: translate(-200px, 0);
+}
+
+.text-left--bottom {
+  transform: translate(-200px, 200px);
+}
+
+.input-label {
+  font-family: var(--text-font);
+  font-weight: 400;
+  font-size  : 2rem;
+  color      : var(--white);
+}
+
+.input {
+  margin       : 0.8rem 0;
+  padding      : 0.4rem 0.8rem;
+  border       : none;
+  border-radius: 6px;
+  font-family  : var(--text-font);
+  font-weight  : 300;
+  font-size    : 1.2rem;
+  color        : var(--black);
+}
