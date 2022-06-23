@@ -1,11 +1,16 @@
+import Message from './assets/js/message.js';
+import Actions from './assets/js/actions.js';
+
 window.addEventListener('DOMContentLoaded', () => {
+
   let cuentas = [
     { nombre: 'Mali', saldo: 200, pass: '12345' },
     { nombre: 'Gera', saldo: 200, pass: '123cuenta' },
     { nombre: 'Maui', saldo: 67, pass: 'password' }
   ];
   let cuentaActual = '';
-  const msg = new Message(document.getElementById('message'));
+  let myMsg = null;
+  let myActions = null;
   //----------------- Views
   let showingView = 'loginView';
   const loginView = document.getElementById('loginView');
@@ -13,11 +18,6 @@ window.addEventListener('DOMContentLoaded', () => {
   const consultarView = document.getElementById('consultarView');
   const ingresarMontoView = document.getElementById('ingresarMontoView');
   const retirarMontoView = document.getElementById('retirarMontoView');
-  //------------------- Buttons
-  const btnLeftTop = document.getElementById('btnLeftTop');
-  const btnLeftMiddle = document.getElementById('btnLeftMiddle');
-  const btnLeftBottom = document.getElementById('btnLeftBottom');
-  const btnRightBottom = document.getElementById('btnRightBottom');
 
   const hideView = (view) => {
     view.classList.add('hiddenView');
@@ -31,78 +31,44 @@ window.addEventListener('DOMContentLoaded', () => {
     hideView(actualView);
     showView(nextView);
     showingView = nextView.id;
-    manageActions();
+    actionsManagement();
   };
 
-  const removeActions = (button, actions) => {
-    actions.forEach(action => {
-      button.removeEventListener('click', action, false);
-    });
-  };
-  const setAction = (button, action) => {
-    button.addEventListener('click', action);
-  };
-
-  const manageActions = () => {
+  const actionsManagement = () => {
     switch (showingView) {
       case 'loginView': {
-        removeActions(btnLeftTop, [toConsultarSaldo]);
-        removeActions(btnLeftMiddle, [toIngresarMonto]);
-        removeActions(btnLeftBottom, [toRetirarMonto]);
-        setAction(btnRightBottom, login);
+        myActions.setActions([
+          { 'btnRightBottom': 'login' }
+        ]);
         break;
       }
       case 'mainView': {
-        removeActions(btnLeftBottom, [
-          saveSaldo,
-          withdrawSaldo
+        myActions.setActions([
+          { 'btnLeftTop': 'toConsultarSaldo' },
+          { 'btnLeftMiddle': 'toIngresarMonto' },
+          { 'btnLeftBottom': 'toRetirarMonto' },
+          { 'btnRightBottom': 'logout' },
         ]);
-        removeActions(btnRightBottom, [
-          login,
-          consultarToMain,
-          ingresarMontoToMain,
-          retirarMontoToMain
-        ]);
-        setAction(btnLeftTop, toConsultarSaldo);
-        setAction(btnLeftMiddle, toIngresarMonto);
-        setAction(btnLeftBottom, toRetirarMonto);
-        setAction(btnRightBottom, logout);
         break;
       }
       case 'consultarView': {
-        removeActions(btnLeftTop, [toConsultarSaldo]);
-        removeActions(btnLeftMiddle, [toIngresarMonto]);
-        removeActions(btnLeftBottom, [
-          toRetirarMonto,
-          saveSaldo,
-          withdrawSaldo
+        myActions.setActions([
+          { 'btnRightBottom': 'consultarToMain' }
         ]);
-        removeActions(btnRightBottom, [logout]);
-        setAction(btnRightBottom, consultarToMain);
         break;
       }
       case 'ingresarMontoView': {
-        removeActions(btnLeftTop, [toConsultarSaldo]);
-        removeActions(btnLeftMiddle, [toIngresarMonto]);
-        removeActions(btnLeftBottom, [
-          toRetirarMonto,
-          withdrawSaldo
+        myActions.setActions([
+          { 'btnLeftBottom': 'saveSaldo' },
+          { 'btnRightBottom': 'ingresarMontoToMain' }
         ]);
-        removeActions(btnRightBottom, [logout]);
-        setAction(btnLeftBottom, saveSaldo);
-        setAction(btnRightBottom, ingresarMontoToMain);
         break;
       }
       case 'retirarMontoView': {
-        removeActions(btnLeftTop, [toConsultarSaldo]);
-        removeActions(btnLeftMiddle, [toIngresarMonto]);
-        removeActions(btnLeftBottom, [
-          toRetirarMonto,
-          saveSaldo
+        myActions.setActions([
+          { 'btnLeftBottom': 'withdrawSaldo' },
+          { 'btnRightBottom': 'retirarMontoToMain' }
         ]);
-        removeActions(btnRightBottom, [logout]);
-        setAction(btnLeftBottom, withdrawSaldo);
-        setAction(btnRightBottom, retirarMontoToMain);
         break;
       }
     }
@@ -119,6 +85,7 @@ window.addEventListener('DOMContentLoaded', () => {
   };
 
   const saveSaldo = () => {
+    myMsg.resetMessage();
     const input = document.getElementById('montoIngresar');
     const cuenta = getCuenta();
 
@@ -126,17 +93,18 @@ window.addEventListener('DOMContentLoaded', () => {
     const saldo = cuenta.saldo;
     const newSaldo = parseInt(saldo) + parseInt(montoIngresar);
     if (montoIngresar == 0 || montoIngresar == '') {
-      msg.showMessage('Ingrese el monto que desee guardar.', 'warning');
+      myMsg.showMessage('Ingrese el monto que desee guardar.', 'warning');
     } else if (newSaldo > 990) {
-      msg.showMessage('El monto a ingresar no debe resultar en un saldo mayor a $990', 'warning');
+      myMsg.showMessage('El monto a ingresar no debe resultar en un saldo mayor a $990', 'warning');
     } else {
       cuenta.saldo = newSaldo;
-      msg.showMessage(`Monto ingresado $${montoIngresar}, Saldo actual: $${newSaldo}`, 'success');
+      myMsg.showMessage(`Monto ingresado $${montoIngresar}, Saldo actual: $${newSaldo}`, 'success');
       input.value = '';
     }
   };
 
   const withdrawSaldo = () => {
+    myMsg.resetMessage();
     const input = document.getElementById('montoRetirar');
     const cuenta = getCuenta();
 
@@ -144,12 +112,12 @@ window.addEventListener('DOMContentLoaded', () => {
     const saldo = cuenta.saldo;
     const newSaldo = parseInt(saldo) - parseInt(montoRetirar);
     if (montoRetirar == 0 || montoRetirar == '') {
-      msg.showMessage('Ingrese el monto que desee retirar.', 'warning');
+      myMsg.showMessage('Ingrese el monto que desee retirar.', 'warning');
     } else if (newSaldo < 10) {
-      msg.showMessage('El monto a retirar no debe resultar en un saldo menor a $10', 'warning');
+      myMsg.showMessage('El monto a retirar no debe resultar en un saldo menor a $10', 'warning');
     } else {
       cuenta.saldo = newSaldo;
-      msg.showMessage(`Monto retirado fue $${montoRetirar}, Saldo actual: $${newSaldo}`, 'success');
+      myMsg.showMessage(`Monto retirado fue $${montoRetirar}, Saldo actual: $${newSaldo}`, 'success');
       input.value = '';
     }
   };
@@ -164,12 +132,13 @@ window.addEventListener('DOMContentLoaded', () => {
   };
 
   const login = () => {
+    myMsg.resetMessage();
     const accout = document.getElementById('account');
     const password = document.getElementById('password');
     if (accout.value == 0) {
-      msg.showMessage('Selecciona una cuenta.', 'info');
+      myMsg.showMessage('Selecciona una cuenta.', 'info');
     } else if (password.value == '') {
-      msg.showMessage('Ingresa la contraseña.', 'warning');
+      myMsg.showMessage('Ingresa la contraseña.', 'warning');
     } else {
       const passCuenta = getCuenta(accout.value).pass;
       if (password.value == passCuenta) {
@@ -179,7 +148,7 @@ window.addEventListener('DOMContentLoaded', () => {
         changeView(loginView, mainView);
       }
       else {
-        msg.showMessage('Error! Contraseña Incorrecta.', 'error');
+        myMsg.showMessage('Error! Contraseña Incorrecta.', 'error');
       }
     }
   };
@@ -204,11 +173,11 @@ window.addEventListener('DOMContentLoaded', () => {
     changeView(consultarView, mainView);
   }
   const ingresarMontoToMain = () => {
-    msg.resetMessage();
+    myMsg.resetMessage();
     changeView(ingresarMontoView, mainView);
   }
   const retirarMontoToMain = () => {
-    msg.resetMessage();
+    myMsg.resetMessage();
     changeView(retirarMontoView, mainView);
   }
 
@@ -222,9 +191,35 @@ window.addEventListener('DOMContentLoaded', () => {
   // }
 
   const init = () => {
+    myMsg = new Message(document.getElementById('message'));
+
     const options = document.getElementById('account');
     mostrarCuentas(cuentas, options);
-    manageActions();
+    //------------------- Buttons
+    const btnLeftTop = document.getElementById('btnLeftTop');
+    const btnLeftMiddle = document.getElementById('btnLeftMiddle');
+    const btnLeftBottom = document.getElementById('btnLeftBottom');
+    const btnRightBottom = document.getElementById('btnRightBottom');
+
+    myActions = new Actions([
+      btnLeftTop,
+      btnLeftMiddle,
+      btnLeftBottom,
+      btnRightBottom
+    ], [
+      login,
+      logout,
+      toConsultarSaldo,
+      toIngresarMonto,
+      toRetirarMonto,
+      consultarToMain,
+      ingresarMontoToMain,
+      retirarMontoToMain,
+      saveSaldo,
+      withdrawSaldo
+    ]);
+
+    actionsManagement();
   };
 
   init();

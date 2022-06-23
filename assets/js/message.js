@@ -1,5 +1,5 @@
 let timeOut = null;
-class Message {
+export default class Message {
   constructor(element) {
     this.element = element;
     this.duration = 5;
@@ -29,5 +29,3 @@ class Message {
     if (this.autoClose) this.closeMessage(this.element);
   }
 }
-//cuando ya hay un mensaje mostrado y se quiere mostrar otro inmediatamente
-//cuando ya hay un mensaje mostrando y se cambia de vista
